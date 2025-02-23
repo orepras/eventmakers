@@ -1,9 +1,9 @@
-import React from "react";
-import { EventCard } from "./event-card";
-import { prisma } from "@/utils/prisma";
+import React from 'react';
+import { EventCard } from './event-card';
+import { getAllEvents } from '@/services/event-services';
 
 export const SectionEvents = async () => {
-  const events = await prisma.event.findMany();
+  const events = await getAllEvents();
 
   return (
     <section className="space-y-4">
@@ -17,6 +17,7 @@ export const SectionEvents = async () => {
               title={event.title}
               datetime={event.date.toString()}
               location={event.location}
+              image={event.image}
             />
           );
         })}

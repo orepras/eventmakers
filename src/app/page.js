@@ -1,62 +1,32 @@
-import { CategoryCard } from "./_components/category-card";
-import { EventCard } from "./_components/event-card";
+import React from 'react';
+import { CategoryCard } from './_components/category-card';
+import { SectionEvents } from './_components/section-events';
+import { SectionEventsSkeleton } from './_components/section-events-skeleton';
 
 export default function Page() {
   return (
-    <>
+    <div className="flex flex-col items-center space-y-6">
       <section className="text-center text-balance space-y-2">
-        <h1 className="text-4xl">Discover Events</h1>
+        <h1 className="text-4xl">Explore Events</h1>
         <p className="text-lg">
           Explore popular events near you, browse by category, or check out some
           of the great community calendars.
         </p>
       </section>
-      <section className="space-y-4">
-        <h1>Popular Events</h1>
-        <div className="grid grid-cols-2 gap-8">
-          <EventCard
-            title="Placeholder of the Event Title"
-            dateTime="Feb 20th, 2025 - 20.00 WIB"
-            location="Jakarta, Indonesia"
-          />
-          <EventCard
-            title="Placeholder of the Event Title"
-            dateTime="Feb 20th, 2025 - 20.00 WIB"
-            location="Jakarta, Indonesia"
-          />
-          <EventCard
-            title="Placeholder of the Event Title"
-            dateTime="Feb 20th, 2025 - 20.00 WIB"
-            location="Jakarta, Indonesia"
-          />
-          <EventCard
-            title="Placeholder of the Event Title"
-            dateTime="Feb 20th, 2025 - 20.00 WIB"
-            location="Jakarta, Indonesia"
-          />
-          <EventCard
-            title="Placeholder of the Event Title"
-            dateTime="Feb 20th, 2025 - 20.00 WIB"
-            location="Jakarta, Indonesia"
-          />{" "}
-          <EventCard
-            title="Placeholder of the Event Title"
-            dateTime="Feb 20th, 2025 - 20.00 WIB"
-            location="Jakarta, Indonesia"
-          />
-        </div>
-      </section>
+      <React.Suspense fallback={<SectionEventsSkeleton />}>
+        <SectionEvents />
+      </React.Suspense>
       <section className="space-y-4">
         <h1>Explore By Categories</h1>
-        <div className="grid grid-col-3 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <CategoryCard category="Webinar" totalEvents={10} />
-          <CategoryCard category="Health and Care" totalEvents={10} />
-          <CategoryCard category="Sports" totalEvents={10} />
+          <CategoryCard category="Health and Care" totalEvents={5} />
+          <CategoryCard category="Sports" totalEvents={4} />
           <CategoryCard category="Business" totalEvents={10} />
-          <CategoryCard category="Music" totalEvents={10} />
-          <CategoryCard category="Art" totalEvents={10} />
+          <CategoryCard category="Music" totalEvents={2} />
+          <CategoryCard category="Art" totalEvents={1} />
         </div>
       </section>
-    </>
+    </div>
   );
 }

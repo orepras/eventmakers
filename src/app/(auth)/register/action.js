@@ -1,23 +1,25 @@
-import { prisma } from "@/utils/prisma";
-import * as bcrypt from "bcrypt";
+'use server';
+
+import { prisma } from '@/utils/prisma';
+import bcrypt from 'bcryptjs'; // karena kalau pake bcrypt error node_modules
 
 export async function registerAction(_, formData) {
-  const name = formData.get("Full name");
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const rePassword = formData.get("rePassword");
+  const name = formData.get('fullname');
+  const email = formData.get('email');
+  const password = formData.get('password');
+  const rePassword = formData.get('rePassword');
 
   if ((!name, !email || !password || !rePassword)) {
     return {
-      status: error,
-      message: "All fields are required",
+      status: 'error',
+      message: 'All fields are required',
     };
   }
 
   if (password !== rePassword) {
     return {
-      status: error,
-      message: "Password do not match",
+      status: 'error',
+      message: 'Password do not match',
     };
   }
 
@@ -29,8 +31,8 @@ export async function registerAction(_, formData) {
 
   if (existingEmail) {
     return {
-      status: error,
-      message: "User already registered",
+      status: 'error',
+      message: 'User already registered',
     };
   }
 
@@ -41,7 +43,7 @@ export async function registerAction(_, formData) {
   });
 
   return {
-    status: true,
-    message: "user registered sucessfully",
+    status: 'success',
+    message: 'user registered sucessfully',
   };
 }
