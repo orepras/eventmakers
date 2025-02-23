@@ -14,34 +14,37 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid())
-  name String
-  email String @unique
-  password String?
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   session Session[]
-  events Event[]
+  events  Event[]
 }
 
 model Session {
   id String @id @default(cuid())
 
   userId String
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Event {
-  id String @id @default(cuid())
-  title String
-  description String
-  date DateTime
-  location String
-  image String?
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  date         DateTime
+  location     String
+  image        String?
+  category     String
+  isPubslished Boolean  @default(false)
+  isDeleted    Boolean  @default(false)
 
-  authorId String
-  author User @relation(fields: [authorId], references: [id])
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -49,10 +52,10 @@ model Event {
 }
 
 model Participant {
-  id String @id @default(cuid())
-  name String
+  id    String @id @default(cuid())
+  name  String
   email String
 
   eventId String
-  event Event @relation(fields: [eventId], references: [id])
+  event   Event  @relation(fields: [eventId], references: [id])
 }
