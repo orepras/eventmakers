@@ -1,18 +1,18 @@
-"use server";
+'use server';
 
-import * as arctic from "arctic";
-import { cookies } from "next/headers";
-import { google } from "@/utils/arctic";
-import { redirect } from "next/navigation";
+import * as arctic from 'arctic';
+import { cookies } from 'next/headers';
+import { google } from '@/utils/arctic';
+import { redirect } from 'next/navigation';
 
 export async function continueWithGoogleAction() {
   const cookieStore = await cookies();
   const state = arctic.generateState();
   const codeVerifier = arctic.generateCodeVerifier();
-  const scope = ["openid", "profile", "email"];
+  const scopes = ['openid', 'profile', 'email'];
 
-  cookieStore.set("code_verifier", codeVerifier, { httpOnly: true });
+  cookieStore.set('codeVerifier', codeVerifier, { httpOnly: true });
 
-  const url = google.createAuthorizationURL(state, scope, codeVerifier);
+  const url = google.createAuthorizationURL(state, codeVerifier, scopes);
   redirect(url.href);
 }
