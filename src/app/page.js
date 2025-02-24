@@ -2,8 +2,10 @@ import React from 'react';
 import { CategoryCard } from './_components/category-card';
 import { SectionEvents } from './_components/section-events';
 import { SectionEventsSkeleton } from './_components/section-events-skeleton';
+import { getAllEvents } from '@/services/event-services';
 
-export default function Page() {
+export default async function Page() {
+  const events = await getAllEvents();
   return (
     <div className="flex flex-col items-center space-y-6">
       <section className="text-center text-balance space-y-2">
@@ -14,19 +16,8 @@ export default function Page() {
         </p>
       </section>
       <React.Suspense fallback={<SectionEventsSkeleton />}>
-        <SectionEvents />
+        <SectionEvents events={events} />
       </React.Suspense>
-      <section className="space-y-4">
-        <h1>Explore By Categories</h1>
-        <div className="grid grid-cols-3 gap-4">
-          <CategoryCard category="Webinar" totalEvents={10} />
-          <CategoryCard category="Health and Care" totalEvents={5} />
-          <CategoryCard category="Sports" totalEvents={4} />
-          <CategoryCard category="Business" totalEvents={10} />
-          <CategoryCard category="Music" totalEvents={2} />
-          <CategoryCard category="Art" totalEvents={1} />
-        </div>
-      </section>
     </div>
   );
 }
